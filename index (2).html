@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Complex Miloud Hadefi — Oran</title>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0c0e0f;
+      --bg2:       #141618;
+      --bg3:       #1c1f21;
+      --border:    rgba(255,255,255,0.07);
+      --gold:      #d4a017;
+      --gold-glow: rgba(212,160,23,0.15);
+      --white:     #edf0f2;
+      --gray:      #7a8390;
+      --gray2:     #555e68;
+      --green:     #22c55e;
+      --green-bg:  rgba(34,197,94,0.10);
+      --green-bd:  rgba(34,197,94,0.28);
+      --yellow:    #eab308;
+      --yellow-bg: rgba(234,179,8,0.10);
+      --yellow-bd: rgba(234,179,8,0.35);
+      --red:       #ef4444;
+      --red-bg:    rgba(239,68,68,0.10);
+      --red-bd:    rgba(239,68,68,0.28);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--white); min-height:100vh; }
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:var(--bg2); }
+    ::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+
+    /* NAV */
+    nav {
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 2rem; height:60px;
+      background:rgba(12,14,15,0.93);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-brand { display:flex; align-items:center; gap:.7rem; }
+    .logo-icon {
+      width:34px; height:34px; border-radius:8px;
+      background:var(--gold);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem;
+    }
+    .logo-text { font-family:'Teko',sans-serif; font-size:1.3rem; letter-spacing:.5px; line-height:1; }
+    .logo-text span { color:var(--gold); }
+    .nav-right { display:flex; align-items:center; gap:.8rem; }
+
+    .badge-live {
+      display:none; align-items:center; gap:.4rem;
+      background:var(--red-bg); border:1px solid var(--red-bd);
+      color:var(--red); font-size:.7rem; font-weight:700;
+      padding:.22rem .7rem; border-radius:50px; letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+    .badge-live .dot { width:6px; height:6px; border-radius:50%; background:var(--red); animation:blink 1s infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+
+    .btn-sub {
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.38rem 1rem; background:var(--gold);
+      color:#000; font-weight:700; font-size:.82rem;
+      border-radius:6px; text-decoration:none;
+      transition:background .2s, transform .2s;
+    }
+    .btn-sub:hover { background:#f0c040; transform:translateY(-1px); }
+
+    /* HERO */
+    .hero { padding:3rem 2rem 2rem; max-width:960px; margin:0 auto; text-align:center; }
+    .hero-eye {
+      display:inline-flex; align-items:center; gap:.5rem;
+      font-size:.75rem; font-weight:600; letter-spacing:2px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:.9rem;
+    }
+    .hero h1 {
+      font-family:'Teko',sans-serif;
+      font-size:clamp(2.8rem,8vw,5.5rem);
+      font-weight:700; line-height:.92; letter-spacing:-1px; margin-bottom:.9rem;
+    }
+    .hero h1 em { font-style:normal; color:var(--gold); }
+    .hero p { color:var(--gray); font-size:.95rem; line-height:1.7; max-width:440px; margin:0 auto 1.8rem; }
+
+    .legend {
+      display:inline-flex; gap:1.4rem; flex-wrap:wrap; justify-content:center;
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:50px; padding:.5rem 1.4rem; margin-bottom:2rem;
+      font-size:.8rem;
+    }
+    .legend-item { display:flex; align-items:center; gap:.4rem; }
+    .legend-dot { width:9px; height:9px; border-radius:50%; }
+
+    /* CONTROLS */
+    .controls {
+      max-width:960px; margin:0 auto;
+      padding:0 2rem 1.4rem;
+      display:flex; gap:.7rem; flex-wrap:wrap; align-items:center;
+    }
+    .search-wrap {
+      flex:1; min-width:200px;
+      display:flex; align-items:center; gap:.5rem;
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:8px; padding:.5rem 1rem;
+      transition:border-color .2s;
+    }
+    .search-wrap:focus-within { border-color:var(--gold); }
+    .search-wrap input {
+      background:none; border:none; outline:none;
+      color:var(--white); font-family:'DM Sans',sans-serif; font-size:.88rem; width:100%;
+    }
+    .search-wrap input::placeholder { color:var(--gray2); }
+    .filter-tabs { display:flex; gap:.4rem; flex-wrap:wrap; }
+    .ftab {
+      padding:.36rem .85rem; border-radius:6px;
+      border:1px solid var(--border); background:transparent;
+      color:var(--gray); font-family:'DM Sans',sans-serif;
+      font-size:.8rem; font-weight:600; cursor:pointer; transition:all .2s;
+    }
+    .ftab:hover                { border-color:var(--gold); color:var(--gold); background:var(--gold-glow); }
+    .ftab.active               { border-color:var(--gold); color:var(--gold); background:var(--gold-glow); }
+    .ftab.f-up.active          { border-color:var(--green);  color:var(--green);  background:var(--green-bg);  }
+    .ftab.f-on.active          { border-color:var(--yellow); color:var(--yellow); background:var(--yellow-bg); }
+    .ftab.f-pa.active          { border-color:var(--red);    color:var(--red);    background:var(--red-bg);    }
+
+    /* FEED */
+    .feed { max-width:960px; margin:0 auto; padding:0 2rem 5rem; }
+
+    /* Day group */
+    .day-block { margin-bottom:2.2rem; }
+    .day-header { display:flex; align-items:center; gap:.9rem; margin-bottom:.9rem; }
+    .day-label { font-family:'Teko',sans-serif; font-size:1.5rem; font-weight:600; line-height:1; white-space:nowrap; }
+    .day-label .dn { color:var(--white); }
+    .day-label.is-today .dn { color:var(--yellow); }
+    .day-label .dd { color:var(--gold); margin-left:.35rem; font-size:1rem; font-weight:400; }
+    .today-pill {
+      display:inline-flex; align-items:center; gap:.3rem;
+      background:var(--yellow-bg); border:1px solid var(--yellow-bd);
+      color:var(--yellow); font-size:.67rem; font-weight:700;
+      padding:.14rem .5rem; border-radius:50px; letter-spacing:.5px; text-transform:uppercase;
+    }
+    .day-line { flex:1; height:1px; background:var(--border); }
+
+    /* Event row */
+    .ev {
+      display:flex; align-items:stretch;
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:10px; overflow:hidden;
+      margin-bottom:.55rem;
+      transition:border-color .2s, transform .2s;
+      cursor:default;
+    }
+    .ev:hover { transform:translateX(4px); }
+    .ev.up { border-color:var(--green-bd); }
+    .ev.on { border-color:var(--yellow-bd); }
+    .ev.pa { border-color:var(--red-bd); opacity:.7; }
+
+    .ev-stripe { width:4px; flex-shrink:0; }
+    .ev.up .ev-stripe { background:var(--green); }
+    .ev.on .ev-stripe { background:var(--yellow); }
+    .ev.pa .ev-stripe { background:var(--red); }
+
+    .ev-time {
+      min-width:78px; flex-shrink:0;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:.75rem .55rem; border-right:1px solid var(--border);
+      font-family:'Teko',sans-serif; font-size:1.2rem; line-height:1.1; text-align:center;
+    }
+    .ev.up .ev-time { color:var(--green); }
+    .ev.on .ev-time { color:var(--yellow); }
+    .ev.pa .ev-time { color:var(--red); }
+    .ev-time .t-end  { font-size:.72rem; opacity:.55; margin-top:.1rem; }
+    .ev-time .t-ad   { font-size:.72rem; letter-spacing:1px; }
+    .ev.on .ev-time::after {
+      content:'NOW'; display:block; font-size:.56rem;
+      letter-spacing:1px; margin-top:.2rem;
+      color:var(--yellow); animation:blink 1s infinite;
+    }
+
+    .ev-body { flex:1; padding:.85rem 1rem; display:flex; flex-direction:column; justify-content:center; }
+    .ev-title {
+      font-size:.95rem; font-weight:600; margin-bottom:.2rem;
+      display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+    }
+    .spill {
+      font-size:.64rem; font-weight:700; letter-spacing:.4px;
+      text-transform:uppercase; padding:.1rem .45rem; border-radius:4px;
+    }
+    .ev.up .spill { background:var(--green-bg);  color:var(--green);  border:1px solid var(--green-bd);  }
+    .ev.on .spill { background:var(--yellow-bg); color:var(--yellow); border:1px solid var(--yellow-bd); }
+    .ev.pa .spill { background:var(--red-bg);    color:var(--red);    border:1px solid var(--red-bd);    }
+
+    .ev-meta { font-size:.78rem; color:var(--gray); display:flex; gap:.9rem; flex-wrap:wrap; }
+    .ev-meta .loc::before { content:'📍 '; }
+    .ev-meta .dsc { font-style:italic; opacity:.8; }
+
+    /* States */
+    .state-box { text-align:center; padding:5rem 2rem; color:var(--gray); }
+    .state-box .si { font-size:3rem; margin-bottom:1rem; display:block; }
+    .state-box p { font-size:.95rem; line-height:1.8; }
+    .state-box a { color:var(--gold); }
+    .spinner {
+      width:38px; height:38px; border:3px solid var(--bg3);
+      border-top-color:var(--gold); border-radius:50%;
+      animation:spin .7s linear infinite; margin:0 auto 1rem;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* Footer */
+    footer {
+      border-top:1px solid var(--border);
+      padding:2rem; text-align:center;
+      color:var(--gray2); font-size:.78rem;
+    }
+    footer strong { color:var(--gold); }
+    .ft-links { display:flex; gap:1.4rem; justify-content:center; margin-top:.7rem; flex-wrap:wrap; }
+    .ft-links a { color:var(--gray); text-decoration:none; transition:color .2s; }
+    .ft-links a:hover { color:var(--gold); }
+
+    @media(max-width:600px){
+      .hero { padding:2rem 1rem 1.5rem; }
+      .controls { padding:0 1rem 1.2rem; }
+      .feed { padding:0 1rem 3rem; }
+      .ev-time { min-width:64px; font-size:1rem; }
+      nav { padding:0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="logo-icon">🏟</div>
+    <div class="logo-text">SC <span>MILOUD HADEFI</span></div>
+  </div>
+  <div class="nav-right">
+    <div class="badge-live" id="liveBadge"><div class="dot"></div> Live</div>
+    <a class="btn-sub"
+       href="https://calendar.google.com/calendar/u/0?cid=YmFkcm9iaWdib3NzM0BnbWFpbC5jb20"
+       target="_blank">+ Subscribe</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eye">📍 Oran, Algeria</div>
+  <h1>SPORTS COMPLEX<br><em>MILOUD HADEFI</em></h1>
+  <p>Official live schedule of all sporting events — synced directly from our Google Calendar.</p>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Upcoming</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Ongoing</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Past</div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span style="color:var(--gray2)">🔍</span>
+    <input id="q" type="text" placeholder="Search events…" oninput="applyFilters()">
+  </div>
+  <div class="filter-tabs">
+    <button class="ftab active"  onclick="setFilter('all',this)">All</button>
+    <button class="ftab f-up"    onclick="setFilter('up',this)">Upcoming</button>
+    <button class="ftab f-on"    onclick="setFilter('on',this)">Ongoing</button>
+    <button class="ftab f-pa"    onclick="setFilter('pa',this)">Past</button>
+  </div>
+</div>
+
+<main class="feed" id="feed">
+  <div class="state-box">
+    <div class="spinner"></div>
+    <p>Loading events from Google Calendar…</p>
+  </div>
+</main>
+
+<footer>
+  <div>© 2025 <strong>Sports Complex Miloud Hadefi</strong> — Oran, Algeria</div>
+  <div class="ft-links">
+    <a href="https://calendar.google.com/calendar/u/0?cid=YmFkcm9iaWdib3NzM0BnbWFpbC5jb20" target="_blank">📅 Add to Google Calendar</a>
+    <a href="https://calendar.google.com/calendar/ical/badrobigboss3%40gmail.com/public/basic.ics">📥 Download iCal</a>
+    <a href="https://calendar.google.com/calendar/embed?src=badrobigboss3%40gmail.com&ctz=Africa%2FAlgiers" target="_blank">🖥 Full Calendar View</a>
+  </div>
+</footer>
+
+<script>
+// ── Config ──────────────────────────────────────────────
+const ICAL  = 'https://calendar.google.com/calendar/ical/badrobigboss3%40gmail.com/public/basic.ics';
+const PROXY = 'https://corsproxy.io/?';
+
+let allEvs = [], activeFilter = 'all';
+
+// ── Fetch ────────────────────────────────────────────────
+async function load() {
+  try {
+    const r = await fetch(PROXY + encodeURIComponent(ICAL));
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    allEvs = parseICal(await r.text());
+    allEvs.sort((a,b) => a.start - b.start);
+    applyFilters();
+    checkLive();
+  } catch(e) { showErr(e); }
+}
+
+// ── iCal parser ─────────────────────────────────────────
+function parseICal(raw) {
+  raw = raw.replace(/\r\n[ \t]/g,'').replace(/\r\n/g,'\n');
+  const out = [];
+  for (const block of raw.split('BEGIN:VEVENT').slice(1)) {
+    const g = k => {
+      const m = block.match(new RegExp(`^${k}[;:][^\n]*`,'mi'));
+      return m ? m[0].replace(/^[^:]*:/,'').trim() : '';
+    };
+    const dtS = g('DTSTART'), dtE = g('DTEND');
+    if (!dtS) continue;
+    const allDay = /^\d{8}$/.test(dtS.replace(/.*:/,''));
+    const start  = pd(dtS), end = dtE ? pd(dtE) : null;
+    if (!start) continue;
+    out.push({
+      title:    dec(g('SUMMARY') || '(No title)'),
+      desc:     dec(g('DESCRIPTION')),
+      location: dec(g('LOCATION')),
+      start, end, allDay
+    });
+  }
+  return out;
+}
+
+function pd(raw) {
+  const v = raw.includes(':') ? raw.split(':').pop() : raw;
+  if (/^\d{8}$/.test(v))
+    return new Date(+v.slice(0,4), +v.slice(4,6)-1, +v.slice(6,8));
+  const m = v.match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})(Z?)$/);
+  if (!m) return null;
+  return m[7]==='Z'
+    ? new Date(Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5],+m[6]))
+    : new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5],+m[6]);
+}
+
+function dec(s) {
+  return s.replace(/\\n/g,' ').replace(/\\,/g,',').replace(/\\;/g,';').replace(/\\/g,'').trim();
+}
+
+// ── Status ───────────────────────────────────────────────
+function status(ev) {
+  const now = new Date();
+  if (ev.allDay) {
+    const t = new Date(); t.setHours(0,0,0,0);
+    const s = new Date(ev.start); s.setHours(0,0,0,0);
+    const e = ev.end ? (new Date(ev.end), (() => { const x=new Date(ev.end); x.setHours(0,0,0,0); return x; })()) : null;
+    if (s > t) return 'up';
+    if (e && e <= t) return 'pa';
+    return 'on';
+  }
+  const end = ev.end || new Date(ev.start.getTime() + 7200000);
+  if (ev.start > now) return 'up';
+  if (end < now)      return 'pa';
+  return 'on';
+}
+
+// ── Helpers ──────────────────────────────────────────────
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmt(d) {
+  let h=d.getHours(), m=d.getMinutes();
+  const ap = h>=12?'PM':'AM'; h=h%12||12;
+  return `${h}:${String(m).padStart(2,'0')} ${ap}`;
+}
+
+function dkey(d) { return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; }
+
+function dlabel(d) {
+  const now=new Date(); now.setHours(0,0,0,0);
+  const dd=new Date(d); dd.setHours(0,0,0,0);
+  const diff=Math.round((dd-now)/86400000);
+  const name = diff===0?'Today':diff===1?'Tomorrow':diff===-1?'Yesterday':DAYS[d.getDay()];
+  return { name, date:`${MONS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`, isToday:diff===0 };
+}
+
+// ── Filters & render ────────────────────────────────────
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById('q').value.toLowerCase().trim();
+  const evs = allEvs.filter(ev => {
+    const st = status(ev);
+    if (activeFilter!=='all' && st!==activeFilter) return false;
+    if (q && ![ev.title,ev.desc,ev.location].some(x=>x.toLowerCase().includes(q))) return false;
+    return true;
+  });
+  render(evs);
+}
+
+function render(evs) {
+  const feed = document.getElementById('feed');
+  if (!evs.length) {
+    feed.innerHTML=`<div class="state-box"><span class="si">🔍</span><p>No events found for this filter.</p></div>`;
+    return;
+  }
+  // Group by day
+  const map = new Map();
+  evs.forEach(ev => {
+    const k=dkey(ev.start);
+    if (!map.has(k)) map.set(k,{d:ev.start, evs:[]});
+    map.get(k).evs.push(ev);
+  });
+
+  let html='';
+  map.forEach(({d, evs:list}) => {
+    const {name,date,isToday}=dlabel(d);
+    html += `<div class="day-block">
+      <div class="day-header">
+        <div class="day-label${isToday?' is-today':''}">
+          <span class="dn">${name}</span><span class="dd">${date}</span>
+        </div>
+        ${isToday?'<div class="today-pill">📅 Today</div>':''}
+        <div class="day-line"></div>
+      </div>`;
+
+    list.forEach(ev => {
+      const st  = status(ev);
+      const lbl = st==='up'?'Upcoming':st==='on'?'Ongoing':'Past';
+      const end = ev.end || (ev.allDay?null:new Date(ev.start.getTime()+7200000));
+      const timeHtml = ev.allDay
+        ? `<span class="t-ad">ALL<br>DAY</span>`
+        : `${fmt(ev.start)}<span class="t-end">${end?fmt(end):''}</span>`;
+      const meta = [];
+      if (ev.location) meta.push(`<span class="loc">${ev.location}</span>`);
+      if (ev.desc)     meta.push(`<span class="dsc">${ev.desc.slice(0,110)}${ev.desc.length>110?'…':''}</span>`);
+
+      html += `<div class="ev ${st}">
+        <div class="ev-stripe"></div>
+        <div class="ev-time">${timeHtml}</div>
+        <div class="ev-body">
+          <div class="ev-title">${ev.title} <span class="spill">${lbl}</span></div>
+          ${meta.length?`<div class="ev-meta">${meta.join('')}</div>`:''}
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  feed.innerHTML = html;
+}
+
+function checkLive() {
+  const live = allEvs.some(ev=>status(ev)==='on');
+  const el = document.getElementById('liveBadge');
+  el.style.display = live ? 'flex' : 'none';
+}
+
+function showErr(e) {
+  document.getElementById('feed').innerHTML=`
+    <div class="state-box">
+      <span class="si">⚠️</span>
+      <p>Could not load events automatically.<br><br>
+      <a href="https://calendar.google.com/calendar/embed?src=badrobigboss3%40gmail.com&ctz=Africa%2FAlgiers" target="_blank">
+        Open calendar directly on Google →</a><br><br>
+      <small style="color:var(--gray2)">${e.message}</small></p>
+    </div>`;
+}
+
+// Load + refresh every 5 min
+load();
+setInterval(load, 300000);
+</script>
+</body>
+</html>
